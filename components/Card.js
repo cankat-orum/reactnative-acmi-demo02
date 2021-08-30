@@ -3,7 +3,7 @@ import { StyleSheet, View } from "react-native";
 
 const Card = (props) => {
   return (
-    <View style={{ ...styles.card, ...props.style }}>{props.children} </View> // used props.children so this comp can wrap whatever is inside it
+    <View style={{ ...styles.card, ...props.style }}>{props.children}</View> // used props.children so this comp can wrap whatever is inside it
   );
 };
 
