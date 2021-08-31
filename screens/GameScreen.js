@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { StyleSheet, View, Text, Button, Alert } from "react-native";
 
 import NumberCon from "../components/NumberContainer";
@@ -19,9 +19,17 @@ const GameScreen = (props) => {
   const [currentGuess, setCurrentGuess] = useState(
     generateRandomBetween(1, 100, props.userChoice)
   );
-
+  const [rounds, setRounds] = useState(0);
   const currentLow = useRef(1);
   const currentHigh = useRef(100);
+
+  const { userChoice, onGameOver } = props; // destructuring
+
+  useEffect(() => {
+    if (currentGuess == userChoice) {
+      onGameOver(rounds);
+    }
+  }, [currentGuess, userChoice, onGameOver]); // dependencies (always destructure the props that goes into useEffect dependencies)
 
   const nextGuessHandler = (direction) => {
     if (
@@ -44,6 +52,7 @@ const GameScreen = (props) => {
       currentGuess
     );
     setCurrentGuess(nextNumber);
+    setRounds((curRounds) => curRounds + 1);
   };
 
   return (
